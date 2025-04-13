@@ -8,11 +8,17 @@ load_dotenv()
 API_ID = int(os.getenv('API_ID', 0))
 API_HASH = os.getenv('API_HASH', '')
 
+STRING_SESSION = os.getenv('STRING_SESSION', '') # String session for the bot
+
 ADMIN_USER_ID = int(os.getenv('ADMIN_USER_ID', 0)) # User ID of the admin controlling the bot
 TARGET_FORWARD_CHANNEL_ID = int(os.getenv('TARGET_FORWARD_CHANNEL_ID', 0)) # Channel ID to forward messages to
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
+
+if not STRING_SESSION:
+    logger.error("🛑 STRING_SESSION must be set in the .env file.")
+    exit(1)
 
 if API_ID == 0 or not API_HASH:
     logger.error("🛑 API_ID and API_HASH must be set in the .env file.")

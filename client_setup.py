@@ -1,12 +1,11 @@
 from telethon import TelegramClient
+from telethon.sessions import StringSession
 
-from config import API_HASH, API_ID, logger
+from config import API_HASH, API_ID, STRING_SESSION, logger
 
 # Initialize the Telegram client
-# The session name 'session_name' will create a session_name.session file
-# This file stores authorization keys and should be kept secure
 try:
-    client = TelegramClient('session_name', API_ID, API_HASH)
+    client = TelegramClient(StringSession(STRING_SESSION), API_ID, API_HASH)
     logger.info("✅ Telegram client initialized.")
 except Exception as e:
     logger.error(f"🛑 Failed to initialize Telegram client: {e}")
