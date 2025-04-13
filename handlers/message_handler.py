@@ -118,7 +118,9 @@ async def process_channel_message(event):
     current_wishlist = get_wishlist() 
 
     for product_id, product_name in current_wishlist:
-        if re.search(r'\b' + re.escape(product_name) + r'\b', text, re.IGNORECASE):
+        product_words = product_name.split()
+        # Check if all words (case-insensitive, whole words) are present in the text
+        if product_words and all(re.search(r'\b' + re.escape(word) + r'\b', text, re.IGNORECASE) for word in product_words):
             price = extract_price_from_text(text)
             if price:
                 logger.info(f"✅ Found '{product_name}' (ID: {product_id}) for R${price} in source {resolved_id} (Msg ID: {event.id})")
