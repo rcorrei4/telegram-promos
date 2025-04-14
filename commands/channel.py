@@ -54,12 +54,10 @@ async def handle_list_channels(event):
 
     if not client or not client.is_connected():
         logger.warning("Client not connected, cannot fetch channel titles for list.")
-        for channel_tuple in channels_to_list:
-             channel_id = channel_tuple[0]
+        for channel_id in channels_to_list:
              message += f"- `{channel_id}`: (Name unavailable - client disconnected)\n"
     else:
-        for channel_tuple in channels_to_list:
-            channel_id = channel_tuple[0]
+        for channel_id in channels_to_list:
             name = f"ID {channel_id}"
             try:
                 entity = await client.get_entity(channel_id)
